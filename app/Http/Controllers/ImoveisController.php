@@ -9,15 +9,21 @@ class ImoveisController extends Controller
     
     public function index(Request $request){
 
-        if(){
+        if($request->has('filter')){
+            $query = Imoveis::query();
 
+            $filters = explode(',',$request->input('filter'));
+            foreach($filters as $filter){
+                list($criteria,$value) = explode(':',$filter);
+                $query->where($criteria,$value);
+            }
         }else{
+            $query = Imoveis::all();
 
         }
 
 
-        $lol = Imoveis::all();
-        return $lol;
+       return $query;
     }
 
 

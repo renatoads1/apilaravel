@@ -6,25 +6,39 @@ use Illuminate\Http\Request;
 use App\Imoveis;
 class ImoveisController extends Controller
 {
-    
-    public function index(Request $request){
-
-        if($request->has('filter')){
-            $query = Imoveis::query();
-
-            $filters = explode(',',$request->input('filter'));
-            foreach($filters as $filter){
-                list($criteria,$value) = explode(':',$filter);
-                $query->where($criteria,$value);
-            }
-        }else{
-            $query = Imoveis::all();
-
+    /* 
+    Exibe imoveis
+    */
+    public function index(){
+        $query = Imoveis::all();
+        return $query;
         }
-
-
-       return $query;
+    /* 
+    cria um imovel de acordo com o request
+    */
+    public function store(Request $request){
+        Imoveis::create($request->all());
     }
+    /* 
+    *@param int id
+    */
+    public function show($id){
+        return Imoveis::findOrFail($id);
 
+    }
+    /* açtera um registro pelo id
+    *@param int id
+    */
+    public function update(Request $request,$id){
+        $imoveis =Imoveis::findOrFail($id);
+        $imoveis->update($request->all());
+    }
+    /* deleta um registro pelo i d
+    *@param int id
+    */
+    public function destroy($id){
+        $imoveis = Imoveis::findOrFail($id);
+        $imoveis->delete();
+    }
 
 }

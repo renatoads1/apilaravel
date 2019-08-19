@@ -2,5 +2,5 @@
 
 use Illuminate\Http\Request;
 
-Route::get("imoveis","ImoveisController@index");
+Route::resource("imoveis","ImoveisController");
 

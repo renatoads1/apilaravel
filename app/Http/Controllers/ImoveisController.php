@@ -24,7 +24,6 @@ class ImoveisController extends Controller
     */
     public function show($id){
         return Imoveis::findOrFail($id);
-
     }
     /* açtera um registro pelo id
     *@param int id
